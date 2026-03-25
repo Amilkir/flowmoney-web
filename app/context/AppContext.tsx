@@ -120,7 +120,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    const montoFinalDestino = montoOrigen * rate;
+    // Aplicar comisión adicional del 0.3% para Pago Movil en Venezuela
+    const isPagoMovilVE = state.servicio === "Recepción por Transferencia" && state.paisDestino === "VE" && state.metodoPago === "Pago Movil";
+    const effectiveRate = isPagoMovilVE ? rate * 0.997 : rate;
+
+    const montoFinalDestino = montoOrigen * effectiveRate;
     updateField("montoOrigen", montoOrigen);
     updateField("montoDestino", parseFloat(montoFinalDestino.toFixed(2)));
   };
@@ -137,7 +141,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    const montoFinalOrigen = montoDestino / rate;
+    // Aplicar comisión adicional del 0.3% para Pago Movil en Venezuela
+    const isPagoMovilVE = state.servicio === "Recepción por Transferencia" && state.paisDestino === "VE" && state.metodoPago === "Pago Movil";
+    const effectiveRate = isPagoMovilVE ? rate * 0.997 : rate;
+
+    const montoFinalOrigen = montoDestino / effectiveRate;
     updateField("montoDestino", montoDestino);
     updateField("montoOrigen", parseFloat(montoFinalOrigen.toFixed(2)));
   };

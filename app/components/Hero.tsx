@@ -508,6 +508,11 @@ export default function Hero() {
                       className="w-full pl-12 pr-4 py-3 rounded-xl border border-green-200 bg-green-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-green-500 transition-all text-green-800 font-bold text-lg shadow-sm"
                     />
                   </div>
+                  {state.servicio === "Recepción por Transferencia" && state.paisDestino === "VE" && state.metodoPago === "Pago Movil" && (
+                    <p className="text-[12px] text-amber-700 font-medium bg-amber-50 p-2 rounded-lg border border-amber-100 mt-2">
+                      <span className="font-bold">Aviso Pago Móvil:</span> Se suma un 0.3% de comisión bancaria al costo de la operación.
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -526,9 +531,14 @@ export default function Hero() {
                 <p className="text-sm text-gray-600 flex justify-between"><strong>Reciben:</strong> <span>{formatValue(state.montoDestino)} {destCurrencyDisplay}</span></p>
                 <p className="text-sm text-gray-600 flex justify-between"><strong>Vía:</strong> <span className="capitalize">{state.metodoPago ? (state.servicio === "Recepción en Efectivo" ? `Efectivo (${state.metodoPago})` : state.metodoPago) : state.servicio}</span></p>
                 <p className="text-sm text-gray-600 flex justify-between"><strong>País Destino:</strong> <span>{countries.find(c => c.iso === state.paisDestino)?.name || state.paisDestino}</span></p>
-                <div className="mt-4 pt-3 border-t border-gray-100">
+                <div className="mt-4 pt-3 border-t border-gray-100 space-y-3">
+                  {state.servicio === "Recepción por Transferencia" && state.paisDestino === "VE" && state.metodoPago === "Pago Movil" && (
+                    <p className="text-[13px] text-amber-700 font-medium bg-amber-50 p-2.5 rounded-xl border border-amber-100 leading-snug">
+                      <span className="font-bold">Comisión Pago Móvil:</span> Se ha descontado un 0.3% del monto final por cargos del servicio de red.
+                    </p>
+                  )}
                   <p className="text-[13px] text-blue-700 font-medium bg-blue-50/70 p-2.5 rounded-xl border border-blue-100/50 leading-snug">
-                    <span className="font-bold">Nota:</span> Esta tasa es válida en horario <span className="font-bold underline text-blue-900">de Lunes a Sábados de 11:00am a 7:00pm (Hora Venezuela)</span>. Puede variar una vez enviada la orden si se encuentra fuera de ese horario.
+                    <span className="font-bold">Nota:</span> Esta tasa es válida en horario <span className="font-bold underline text-blue-900">de Lunes a Sábados de 11:00am a 7:00pm (Venezuela)</span>. Puede variar una vez enviada la orden si se encuentra fuera de ese horario.
                   </p>
                 </div>
               </div>
