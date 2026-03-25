@@ -183,7 +183,7 @@ export default function Hero() {
   const handleFinish = () => {
     const { nombreUsuario, esNuevo, servicio, paisOrigen, paisDestino, metodoPagoOrigen, metodoPago, montoOrigen, montoDestino } = state;
     const tipoCliente = esNuevo ? "Cliente Nuevo" : "Cliente Recurrente";
-    
+
     // Preparo el string del Medio de Entrega (ej. "Recepción por Transferencia" o "Recepción en Efectivo (Dólar)")
     let medio: string = servicio;
     if (metodoPago) {
@@ -213,12 +213,12 @@ export default function Hero() {
     const rate = getRateValue();
     if (rate === 0) {
       if (!state.paisOrigen || !state.paisDestino) return "";
-      
+
       const paisOrigenNombre = countries.find(c => c.iso === state.paisOrigen)?.name || state.paisOrigen;
       const paisDestinoNombre = countries.find(c => c.iso === state.paisDestino)?.name || state.paisDestino;
       const tipoCliente = state.esNuevo ? "Cliente Nuevo" : "Cliente Recurrente";
       const nombreText = state.nombreUsuario ? state.nombreUsuario : "un usuario";
-      
+
       const mensaje = `Hola, soy ${nombreText}, ${tipoCliente}. Quiero consultar por envío de dinero desde ${paisOrigenNombre} hasta ${paisDestinoNombre} y veo que no hay una tasa disponible.`;
       const url = `https://wa.me/51991884537?text=${encodeURIComponent(mensaje)}`;
 
@@ -336,8 +336,8 @@ export default function Hero() {
                 type="button"
                 onClick={() => updateField("servicio", "Recepción en Efectivo")}
                 className={`w-full flex justify-center items-center py-4 rounded-2xl font-bold transition-all duration-200 ${state.servicio === "Recepción en Efectivo"
-                    ? "bg-blue-600 text-white shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] ring-2 ring-blue-600 ring-offset-2"
-                    : "bg-gray-50 border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                  ? "bg-blue-600 text-white shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] ring-2 ring-blue-600 ring-offset-2"
+                  : "bg-gray-50 border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                   }`}
               >
                 Recepción en Efectivo
@@ -346,8 +346,8 @@ export default function Hero() {
                 type="button"
                 onClick={() => updateField("servicio", "Recepción por Transferencia")}
                 className={`w-full flex justify-center items-center py-4 rounded-2xl font-bold transition-all duration-200 ${state.servicio === "Recepción por Transferencia"
-                    ? "bg-blue-600 text-white shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] ring-2 ring-blue-600 ring-offset-2"
-                    : "bg-gray-50 border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                  ? "bg-blue-600 text-white shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] ring-2 ring-blue-600 ring-offset-2"
+                  : "bg-gray-50 border border-gray-200 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                   }`}
               >
                 Recepción por Transferencia
@@ -526,6 +526,11 @@ export default function Hero() {
                 <p className="text-sm text-gray-600 flex justify-between"><strong>Reciben:</strong> <span>{formatValue(state.montoDestino)} {destCurrencyDisplay}</span></p>
                 <p className="text-sm text-gray-600 flex justify-between"><strong>Vía:</strong> <span className="capitalize">{state.metodoPago ? (state.servicio === "Recepción en Efectivo" ? `Efectivo (${state.metodoPago})` : state.metodoPago) : state.servicio}</span></p>
                 <p className="text-sm text-gray-600 flex justify-between"><strong>País Destino:</strong> <span>{countries.find(c => c.iso === state.paisDestino)?.name || state.paisDestino}</span></p>
+                <div className="mt-4 pt-3 border-t border-gray-100">
+                  <p className="text-[13px] text-blue-700 font-medium bg-blue-50/70 p-2.5 rounded-xl border border-blue-100/50 leading-snug">
+                    <span className="font-bold">Nota:</span> Esta tasa es válida en horario de <span className="font-bold underline text-blue-900">11:00am a 7:00pm</span>. Puede verse modificada una vez recibida la orden si se encuentra fuera de ese rango de hora.
+                  </p>
+                </div>
               </div>
               <p className="text-sm text-gray-500 mt-4 leading-relaxed">
                 Al finalizar, te redirigiremos a WhatsApp con un mensaje pre-armado con todos estos detalles.
