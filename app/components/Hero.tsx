@@ -528,7 +528,7 @@ export default function Hero() {
                 <p className="text-sm text-gray-600 flex justify-between"><strong>País Destino:</strong> <span>{countries.find(c => c.iso === state.paisDestino)?.name || state.paisDestino}</span></p>
                 <div className="mt-4 pt-3 border-t border-gray-100">
                   <p className="text-[13px] text-blue-700 font-medium bg-blue-50/70 p-2.5 rounded-xl border border-blue-100/50 leading-snug">
-                    <span className="font-bold">Nota:</span> Esta tasa es válida en horario de <span className="font-bold underline text-blue-900">11:00am a 7:00pm</span>. Puede verse modificada una vez recibida la orden si se encuentra fuera de ese rango de hora.
+                    <span className="font-bold">Nota:</span> Esta tasa es válida en horario <span className="font-bold underline text-blue-900">de Lunes a Sábados de 11:00am a 7:00pm (Hora Venezuela)</span>. Puede variar una vez enviada la orden si se encuentra fuera de ese horario.
                   </p>
                 </div>
               </div>
