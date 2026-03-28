@@ -248,7 +248,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-hidden">
+    <section className="relative min-h-[100dvh] flex items-center justify-center p-4 pb-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-x-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-300/30 rounded-full blur-3xl" />
@@ -374,6 +374,8 @@ export default function Hero() {
                 onChange={(val) => updateField("paisDestino", val)}
                 options={state.servicio === "Recepción en Efectivo" ? countries.filter(c => c.iso === "VE") : countries}
               />
+              {/* Espacio extra para asegurar que el dropdown tenga lugar en móviles */}
+              <div className="h-20 sm:hidden"></div>
             </div>
           )}
 
