@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { fetchLiveRates } from "@/app/utils/rates";
 
 interface AppState {
   nombreUsuario: string;
@@ -65,11 +66,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState<AppState>(defaultState);
   const [rates, setRates] = useState<{ transferencia: Record<string, number>, efectivo: Record<string, number> }>({ transferencia: {}, efectivo: {} });
 
+
   useEffect(() => {
     const fetchRates = async () => {
       try {
-        const res = await fetch("/api/rates");
-        const data = await res.json();
+        const data = await fetchLiveRates();
         if (data.transferencia && data.efectivo) {
           setRates(data);
         }
