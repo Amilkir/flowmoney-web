@@ -6,18 +6,18 @@
 export function parseCSV(csvText: string) {
   const lines = csvText.split('\n').map(l => l.trim()).filter(l => l);
   const data: Record<string, number> = {};
-  
+
   // Omitimos la primera línea (cabecera)
   for (let i = 1; i < lines.length; i++) {
     const parts = lines[i].split(',');
     if (parts.length >= 3) {
       const origen = parts[0];
       const destino = parts[1];
-      
+
       let tasaStr = parts.slice(2).join(',');
       tasaStr = tasaStr.replace(/"/g, '').trim();
       tasaStr = tasaStr.replace(',', '.'); // Convert ES comma to EN decimal
-      
+
       const tasa = parseFloat(tasaStr);
       if (!isNaN(tasa)) {
         data[`${origen}_${destino}`] = tasa;
@@ -28,8 +28,8 @@ export function parseCSV(csvText: string) {
 }
 
 export async function fetchLiveRates() {
-  const tfUrl = "https://docs.google.com/spreadsheets/d/1YBAJQjsSm8Kvfd-tfQ8Rjn3LimqR8VXoP6m1rkK1FKU/export?format=csv&gid=0";
-  const efUrl = "https://docs.google.com/spreadsheets/d/1YBAJQjsSm8Kvfd-tfQ8Rjn3LimqR8VXoP6m1rkK1FKU/export?format=csv&gid=2072416046";
+  const tfUrl = "https://docs.google.com/spreadsheets/d/1i0YPBeDvbnuE5eoRFfDGSViIiHVYjv3p-1kzXO1_YHw/export?format=csv&gid=0";
+  const efUrl = "https://docs.google.com/spreadsheets/d/1i0YPBeDvbnuE5eoRFfDGSViIiHVYjv3p-1kzXO1_YHw/export?format=csv&gid=374600726";
 
   const [tfRes, efRes] = await Promise.all([
     fetch(tfUrl, { cache: 'no-store' }),

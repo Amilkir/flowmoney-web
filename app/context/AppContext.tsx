@@ -45,15 +45,18 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
  */
 const localizeCurrency = (iso: string, isEfectivoDestino?: boolean, metodoPago?: string): string[] => {
   if (isEfectivoDestino && iso === "VE") {
-    if (metodoPago === "Pesos Colombianos (COP)") return ["COP"];
+    if (metodoPago === "Pesos Colombianos (COP)") return ["COP.es", "COP.ES", "COP. es", "COP"];
     if (metodoPago === "Dólar (USD)") return ["EEUU", "USD"];
+    if (metodoPago === "Bolívares (VES)") return ["VES"];
   }
   const map: Record<string, string[]> = {
     "AR": ["AR", "ARS"],
     "CL": ["CLP"],
     "CO": ["COP"],
+    "EC": ["USD", "EEUU", "ECU", "USD_EC"],
     "ES": ["EUR"],
-    "US": ["EEUU"],
+    "EU": ["EUR"],
+    "US": ["EEUU", "USD"],
     "MX": ["MXN"],
     "PA": ["PAB"],
     "PE": ["PEN"],
