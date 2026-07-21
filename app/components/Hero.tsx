@@ -10,8 +10,9 @@ const countries = [
   { name: "Argentina", iso: "AR" },
   { name: "Chile", iso: "CL" },
   { name: "Colombia", iso: "CO" },
-  { name: "España", iso: "ES" },
+  { name: "Ecuador", iso: "EC" },
   { name: "Estados Unidos", iso: "US" },
+  { name: "Europa", iso: "EU" },
   { name: "México", iso: "MX" },
   { name: "Panamá", iso: "PA" },
   { name: "Perú", iso: "PE" },
@@ -22,9 +23,12 @@ const originPaymentMethods: Record<string, string[]> = {
   CL: ["Banco Estado", "Banco de Chile"],
   PE: ["Interbank", "Plin"],
   CO: ["Bancolombia"],
+  EC: ["Banco Guayaquil"],
+  US: ["Zelle"],
   VE: ["Banco de Venezuela", "Banesco"],
   PA: ["Banesco Panama"],
   MX: ["Bancomer", "Depósito por Oxxo"],
+  EU: ["Revolut Bank"],
   ES: ["Revolut Bank"],
   AR: ["MercadoPago"]
 };
@@ -33,9 +37,12 @@ const destinationPaymentMethods: Record<string, string[]> = {
   CL: ["Banco Estado", "Banco de Chile"],
   PE: ["Interbank", "Plin"],
   CO: ["Bancolombia"],
+  EC: ["Banco Guayaquil"],
+  US: ["Zelle"],
   VE: ["Banco de Venezuela", "Banesco", "Pago Movil"],
   PA: ["Banesco Panama"],
   MX: ["Bancomer", "Depósito por Oxxo"],
+  EU: ["Revolut Bank"],
   ES: ["Revolut Bank"],
   AR: ["MercadoPago"]
 };
@@ -144,6 +151,7 @@ export default function Hero() {
     }
     if (state.servicio === "Recepción en Efectivo") {
       updateField("paisDestino", "VE");
+      updateField("metodoPago", "Pesos Colombianos (COP)");
     }
     nextStep();
   };
@@ -200,6 +208,7 @@ export default function Hero() {
     if (servicio === "Recepción en Efectivo" && paisDestino === "VE") {
       if (metodoPago === "Pesos Colombianos (COP)") destCurrencyDisplay = "COP";
       if (metodoPago === "Dólar (USD)") destCurrencyDisplay = "USD";
+      if (metodoPago === "Bolívares (VES)") destCurrencyDisplay = "VES";
     }
 
     const mensaje = `Hola, soy ${nombreUsuario}. ${tipoCliente}. Quiero hacer una remesa de ${formatValue(montoOrigen)} ${paisOrigen}${origenInfo} vía ${medio} para recibir ${formatValue(montoDestino)} ${destCurrencyDisplay} en ${paisNombre}.`;
@@ -236,6 +245,7 @@ export default function Hero() {
     if (state.servicio === "Recepción en Efectivo" && state.paisDestino === "VE") {
       if (state.metodoPago === "Pesos Colombianos (COP)") destString = "COP";
       if (state.metodoPago === "Dólar (USD)") destString = "USD";
+      if (state.metodoPago === "Bolívares (VES)") destString = "VES";
     }
 
     return `Tasa: 1 ${state.paisOrigen} = ${rateFormatter.format(rate)} ${destString}`;
@@ -245,6 +255,7 @@ export default function Hero() {
   if (state.servicio === "Recepción en Efectivo" && state.paisDestino === "VE") {
     if (state.metodoPago === "Pesos Colombianos (COP)") destCurrencyDisplay = "COP";
     if (state.metodoPago === "Dólar (USD)") destCurrencyDisplay = "USD";
+    if (state.metodoPago === "Bolívares (VES)") destCurrencyDisplay = "VES";
   }
 
   return (
@@ -426,10 +437,7 @@ export default function Hero() {
                   >
                     <option value="">{state.servicio === "Recepción en Efectivo" ? "Selecciona moneda" : "Selecciona método"}</option>
                     {state.servicio === "Recepción en Efectivo" ? (
-                      <>
-                        <option value="Pesos Colombianos (COP)">Pesos Colombianos (COP)</option>
-                        <option value="Dólar (USD)">Dólar (USD)</option>
-                      </>
+                      <option value="Pesos Colombianos (COP)">Pesos Colombianos (COP)</option>
                     ) : (
                       destinationPaymentMethods[state.paisDestino]?.map(method => (
                         <option key={method} value={method}>{method}</option>
